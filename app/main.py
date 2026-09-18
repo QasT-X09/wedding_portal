@@ -53,6 +53,10 @@ app.mount("/uploads", StaticFiles(directory=str(config.UPLOAD_DIR)), name="uploa
 app.mount("/thumbnails", StaticFiles(directory=str(config.THUMBNAIL_DIR)), name="thumbnails")
 app.mount("/static", StaticFiles(directory=str(config.STATIC_DIR)), name="static")
 
+carousel_dir = config.STATIC_DIR / "dist" / "carousel"
+if carousel_dir.exists():
+    app.mount("/carousel", StaticFiles(directory=str(carousel_dir)), name="carousel")
+
 dist_assets = config.STATIC_DIR / "dist" / "assets"
 if dist_assets.exists():
     app.mount("/assets", StaticFiles(directory=str(dist_assets)), name="assets")
