@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --color-deep-black: #0D0C0B;
+  --color-soft-black: #171513;
+  --color-warm-ivory: #F5F1E9;
+  --color-champagne: #E8E0D2;
+  --color-muted-gold: #B39A72;
+  --color-pure-white: #FFFFFF;
+
+  --color-brand-dark: #0D0C0B;
+  --color-brand-surface: #171513;
+  --color-brand-ivory: #F5F1E9;
+  --color-brand-champagne: #E8E0D2;
+  --color-brand-gold: #B39A72;
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Montserrat', system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    --bg-dark: #0D0C0B;
+    --bg-surface: #171513;
+    --text-light: #F5F1E9;
+    --text-champagne: #E8E0D2;
+    --gold-muted: #B39A72;
+    --gold-glow: rgba(179, 154, 114, 0.2);
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: var(--font-serif);
+  }
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #0D0C0B;
+}
+::-webkit-scrollbar-thumb {
+  background: #2A2622;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B39A72;
+}
+
+/* Film grain effect */
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Thin champagne circle glow */
+.golden-circle-glow {
+  box-shadow: 0 0 40px -10px rgba(179, 154, 114, 0.35), inset 0 0 25px -10px rgba(179, 154, 114, 0.2);
+}

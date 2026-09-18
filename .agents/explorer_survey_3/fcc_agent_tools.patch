@@ -1,0 +1,12 @@
+--- C:/Users/ASUS/fcc_agent_tools.py
++++ C:/Users/ASUS/fcc_agent_tools.py
+@@ -23,3 +23,3 @@
+     "codestral": {
+-        "model": "mistral_codestral/codestral-latest",
++        "model": "mistral/codestral-latest",
+         "description": "Specialized Mistral Codestral model for deep code generation and optimization."
+@@ -87,3 +87,3 @@
+     print(f"[*] Consulting Mistral Codestral...", flush=True)
+-    responses["codestral"] = ask_fcc("mistral_codestral/codestral-latest", prompt)
++    responses["codestral"] = ask_fcc("mistral/codestral-latest", prompt)
+     

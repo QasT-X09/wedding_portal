@@ -1,0 +1,11 @@
+.git
+.pytest_cache
+.agents
+data
+uploads
+thumbnails
+exports
+frontend/node_modules
+frontend/dist
+__pycache__
+**/__pycache__

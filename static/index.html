@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Свадебный портал • Фото и Видео гостей</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/css/wedding.css" />
+</head>
+<body>
+
+  <!-- Floating romantic petals background -->
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="content-wrapper">
+    <!-- Main Navigation Header -->
+    <header class="wedding-nav">
+      <div class="nav-brand">
+        <div class="nav-monogram">W</div>
+        <div>
+          <div class="nav-title serif-font">Свадебный Портал</div>
+          <div style="font-size: 11px; color: #94A3B8; letter-spacing: 0.5px;">ЖИВОЙ АЛЬБОМ И ЭФИР ДЛЯ ГОСТЕЙ</div>
+        </div>
+      </div>
+
+      <nav class="nav-tabs">
+        <button class="nav-tab-btn active" data-tab="upload">📱 Загрузить</button>
+        <button class="nav-tab-btn" data-tab="live">🎥 Проектор в зале</button>
+        <button class="nav-tab-btn" data-tab="gallery">📸 Галерея (AI)</button>
+        <button class="nav-tab-btn" data-tab="qr">🏷️ QR-код</button>
+      </nav>
+    </header>
+
+    <!-- TAB 1: GUEST UPLOAD VIEW -->
+    <main id="view-upload">
+      <!-- Guest Registration Form -->
+      <div id="guest-form-section" class="glass-card" style="text-align: center; max-width: 540px; margin: 0 auto 24px;">
+        <div style="font-size: 2.4rem; margin-bottom: 8px;">💍</div>
+        <h2 class="serif-font" style="font-size: 26px; color: #1E293B; margin-bottom: 8px;">Поделитесь воспоминаниями</h2>
+        <p style="color: #64748B; font-size: 14px; margin-bottom: 24px;">
+          Сканируйте QR, загружайте фото и видео — они моментально появятся на большом экране в банкетном зале!
+        </p>
+
+        <form id="guest-register-form">
+          <div style="margin-bottom: 14px; text-align: left;">
+            <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #475569;">Ваше имя или семья *</label>
+            <input id="input-guest-name" type="text" required placeholder="Например: Иван и Мария Петровы" 
+              style="width: 100%; padding: 12px 16px; border: 1px solid #CBD5E1; border-radius: 12px; font-size: 15px; outline: none;" />
+          </div>
+
+          <div style="margin-bottom: 14px; text-align: left;">
+            <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #475569;">Номер столика (опционально)</label>
+            <input id="input-table-number" type="text" placeholder="Например: Стол №4" 
+              style="width: 100%; padding: 12px 16px; border: 1px solid #CBD5E1; border-radius: 12px; font-size: 15px; outline: none;" />
+          </div>
+
+          <div style="margin-bottom: 20px; text-align: left;">
+            <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #475569;">Тёплое пожелание молодым</label>
+            <textarea id="input-wishes" rows="2" placeholder="Напишите пару добрых слов, они появятся на проекторе!" 
+              style="width: 100%; padding: 12px 16px; border: 1px solid #CBD5E1; border-radius: 12px; font-size: 14px; outline: none; resize: none;"></textarea>
+          </div>
+
+          <button type="submit" class="btn-gold" style="width: 100%;">
+            ✨ Начать загрузку фото и видео
+          </button>
+        </form>
+      </div>
+
+      <!-- Guest Active Profile & Upload Panel -->
+      <div id="guest-info-section" class="glass-card" style="display: none; max-width: 680px; margin: 0 auto 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F1F5F9; padding-bottom: 16px; margin-bottom: 20px;">
+          <div>
+            <div style="font-size: 12px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.5px;">Гость свадьбы</div>
+            <h2 id="display-guest-name" class="serif-font" style="font-size: 22px; color: #1E293B;"></h2>
+          </div>
+          <button id="btn-change-guest" style="background: none; border: none; color: #64748B; font-size: 12px; cursor: pointer; text-decoration: underline;">
+            Сменить имя
+          </button>
+        </div>
+
+        <!-- Quotas -->
+        <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+          <div id="quota-photo-badge" class="quota-badge active">📸 Фото: 0 / 25</div>
+          <div id="quota-video-badge" class="quota-badge active">🎥 Видео: 0 / 10</div>
+          <div class="quota-badge" style="background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0;">⚡ Smart 4K сжатие включено</div>
+        </div>
+
+        <!-- Dropzone -->
+        <div id="upload-dropzone" class="dropzone">
+          <input type="file" id="file-input" multiple accept="image/*,video/*" style="display: none;" />
+          <div style="font-size: 3rem; margin-bottom: 10px;">📸</div>
+          <h3 style="font-size: 18px; font-weight: 600; color: #1E293B; margin-bottom: 6px;">
+            Нажмите сюда или перетащите фото / видео
+          </h3>
+          <p style="font-size: 13px; color: #64748B;">
+            До 25 фото и до 10 видео. Сжатие в высоком качестве происходит прямо в браузере без потери четкости.
+          </p>
+        </div>
+
+        <!-- Selected Queue -->
+        <div id="queue-container" style="display: none; margin-top: 20px;">
+          <h4 style="font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 12px;">Выбранные файлы для отправки:</h4>
+          <div id="upload-queue-list"></div>
+        </div>
+
+        <!-- Submit Button -->
+        <div style="text-align: center; margin-top: 20px;">
+          <button id="btn-start-upload" class="btn-gold" style="display: none; width: 100%;">
+            ✨ Отправить в свадебный альбом
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- TAB 3: GALLERY VIEW -->
+    <main id="view-gallery" style="display: none;">
+      <div class="glass-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;">
+          <div>
+            <h2 class="serif-font" style="font-size: 26px; color: #1E293B;">Свадебная Галерея</h2>
+            <div id="gallery-total-counter" style="font-size: 13px; color: #64748B; margin-top: 2px;">Загрузка...</div>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <select id="filter-guest-select" style="padding: 8px 14px; border-radius: 10px; border: 1px solid #CBD5E1; font-size: 13px; outline: none;">
+              <option value="">Все гости (300 человек)</option>
+            </select>
+            <button id="btn-download-zip" class="btn-gold" style="padding: 9px 18px; font-size: 13px;">
+              📥 Скачать архив (ZIP)
+            </button>
+          </div>
+        </div>
+
+        <!-- AI Category Filters -->
+        <div id="category-filters" class="filter-tabs">
+          <button class="filter-pill active" data-category="all">✨ Все сюжеты</button>
+          <button class="filter-pill" data-category="toasts">🥂 Тосты и застолье</button>
+          <button class="filter-pill" data-category="dances">💃 Танцы и драйв</button>
+          <button class="filter-pill" data-category="group">👥 Гости и друзья</button>
+          <button class="filter-pill" data-category="decor">💍 Детали и кольца</button>
+          <button class="filter-pill" data-category="cake">🎂 Торт</button>
+          <button class="filter-pill" data-category="portrait">👰 Молодожёны и портреты</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div id="gallery-grid" class="media-grid"></div>
+      </div>
+    </main>
+
+    <!-- TAB 4: QR CODE CARDS VIEW -->
+    <main id="view-qr" style="display: none;">
+      <div class="glass-card" style="max-width: 580px; margin: 0 auto; text-align: center;">
+        <h2 class="serif-font" style="font-size: 28px; color: #1E293B; margin-bottom: 8px;">Карточка столика с QR-кодом</h2>
+        <p style="color: #64748B; font-size: 14px; margin-bottom: 24px;">
+          Распечатайте или откройте на планшетах для столов гостей.
+        </p>
+
+        <div style="background: #FAF8F5; border: 2px solid var(--gold); border-radius: 20px; padding: 32px 24px; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15); margin-bottom: 20px;">
+          <div class="serif-font" style="font-size: 30px; color: var(--gold-dark); margin-bottom: 6px;">Свадьба Мечты</div>
+          <div style="font-size: 14px; color: #475569; margin-bottom: 20px;">Поделитесь вашими фото и видео с нами!</div>
+          
+          <img id="qr-display-img" src="/api/qr" alt="QR Code" style="width: 240px; height: 240px; border-radius: 12px; margin-bottom: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.08);" />
+
+          <p style="font-size: 13px; color: #64748B; margin-bottom: 8px;">Наведите камеру смартфона для входа:</p>
+          <div id="qr-link-text" style="font-size: 13px; font-weight: 600; color: #1E293B; word-break: break-all;"></div>
+        </div>
+
+        <button onclick="window.print()" class="btn-gold" style="padding: 10px 24px;">
+          🖨️ Распечатать карточку
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <!-- PROJECTOR FULLSCREEN LIVE WALL (#live) -->
+  <div id="view-live" class="projector-container" style="display: none;">
+    <canvas id="projector-particles" class="projector-canvas"></canvas>
+
+    <!-- Projector Header -->
+    <div class="projector-header">
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <div class="live-badge">
+          <span class="live-pulse"></span>
+          LIVE WALL
+        </div>
+        <div class="serif-font" style="font-size: 22px; color: var(--gold);">Свадебный день • Прямой эфир</div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div id="projector-category-badge" class="cat-tag" style="background: rgba(212, 175, 55, 0.2); color: #FDE68A; font-size: 13px; padding: 4px 12px; border: 1px solid var(--gold);">
+          ✨ Моменты свадьбы
+        </div>
+        <button id="btn-fullscreen" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #FFF; padding: 6px 14px; border-radius: 8px; cursor: pointer;">
+          ⛶ Полный экран
+        </button>
+        <button onclick="window.location.hash='#upload'" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #FFF; padding: 6px 14px; border-radius: 8px; cursor: pointer;">
+          ✕ Выход
+        </button>
+      </div>
+    </div>
+
+    <!-- Active Slide Showcase -->
+    <div id="slide-container" class="slide-wrapper"></div>
+
+    <!-- Projector Footer with Guest Wish and QR helper -->
+    <div class="projector-footer">
+      <div style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(14px); padding: 18px 26px; border-radius: 16px; border-left: 4px solid var(--gold); max-width: 65%;">
+        <div id="projector-guest-name" class="serif-font" style="font-size: 24px; color: #FFFFFF; font-weight: 600;"></div>
+        <div id="projector-guest-wish" style="font-size: 16px; color: #E2E8F0; margin-top: 6px; font-style: italic;"></div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 14px; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(14px); padding: 12px 20px; border-radius: 16px; border: 1px solid rgba(212,175,55,0.3);">
+        <img src="/api/qr" style="width: 72px; height: 72px; border-radius: 8px; background: #FFF;" alt="QR" />
+        <div style="color: #FFF; text-align: left;">
+          <div style="font-size: 13px; font-weight: 600; color: var(--gold);">Загрузи своё фото!</div>
+          <div style="font-size: 11px; opacity: 0.8;">Сканируй QR камерой телефона</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Real-Time Incoming Toast for Projector -->
+    <div id="live-incoming-toast" class="toast-incoming">
+      <img id="toast-thumb" src="" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px; border: 1px solid var(--gold);" />
+      <div>
+        <div id="toast-guest-name" style="font-weight: 700; font-size: 15px; color: var(--gold);"></div>
+        <div id="toast-guest-wish" style="font-size: 13px; opacity: 0.9; margin-top: 2px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal Overlay -->
+  <div id="upload-success-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); z-index: 2000; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: #FFFFFF; border-radius: 20px; padding: 36px 28px; max-width: 440px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 2px solid var(--gold);">
+      <div style="font-size: 3.5rem; margin-bottom: 12px;">🎉</div>
+      <h3 class="serif-font" style="font-size: 24px; color: #1E293B; margin-bottom: 10px;">Спасибо за ваше тепло!</h3>
+      <p style="color: #64748B; font-size: 14px; line-height: 1.5; margin-bottom: 24px;">
+        Ваши фотографии успешно загружены и через пару секунд появятся на большом экране проектора в зале!
+      </p>
+      <button onclick="window.WeddingAppInstance.closeSuccessModal()" class="btn-gold" style="width: 100%;">
+        Продолжить
+      </button>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="gallery-lightbox" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); z-index: 3000; align-items: center; justify-content: center; padding: 20px;" onclick="if(event.target === this) window.WeddingGalleryInstance.closeLightbox()">
+    <div id="lightbox-content"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/static/js/compressor.js"></script>
+  <script src="/static/js/gallery.js"></script>
+  <script src="/static/js/live_wall.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

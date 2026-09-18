@@ -1,0 +1,8 @@
+# Replace this with your real domain before the first deployment.
+# Caddy obtains and renews the HTTPS certificate automatically.
+your-domain.example {
+    request_body {
+        max_size 600MB
+    }
+    reverse_proxy wedding-portal:8000
+}

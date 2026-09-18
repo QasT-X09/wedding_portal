@@ -1,0 +1,951 @@
+# WEDDING PHOTO GALLERY — FINAL REDESIGN
+
+Ты работаешь как senior frontend engineer, UI/UX designer и motion designer внутри Antigravity + Orchestra.
+
+Твоя задача — переработать существующий проект свадебной фотогалереи.
+
+Это НЕ задача на создание статичного mockup.
+
+Нужно изменить существующий frontend и получить реально работающий responsive website.
+
+---
+
+# 0. ОБЯЗАТЕЛЬНО ИЗУЧИ REFERENCE IMAGE
+
+В проекте есть reference image:
+
+`public/design-reference/wedding-reference.png`
+
+Если файл находится в другом месте — найди его самостоятельно.
+
+**Перед началом разработки обязательно открой и изучи эту картинку.**
+
+Она является главным визуальным reference для нового дизайна.
+
+Нужно максимально близко передать:
+
+* композицию;
+* атмосферу;
+* цветовую палитру;
+* typography;
+* положение элементов;
+* золотой круг;
+* падающие лепестки;
+* cinematic lighting;
+* 3D photo carousel;
+* глубину;
+* spacing;
+* визуальную иерархию.
+
+При этом НЕ нужно превращать reference image в background или статическую картинку.
+
+Нужно воспроизвести этот дизайн настоящими HTML/CSS/React компонентами и настоящими animations.
+
+---
+
+# 1. СУЩЕСТВУЮЩИЙ ПРОЕКТ
+
+Сначала полностью проанализируй существующий проект.
+
+Проверь:
+
+* framework;
+* package.json;
+* React;
+* TypeScript;
+* Tailwind;
+* routing;
+* existing components;
+* CSS;
+* animation libraries;
+* image handling;
+* current pages;
+* current sections;
+* current navigation.
+
+Не переписывай проект с нуля без необходимости.
+
+Сохрани существующую рабочую функциональность.
+
+Главная задача — **REDESIGN**, а не уничтожение существующей архитектуры.
+
+---
+
+# 2. 21ST.DEV
+
+Перед разработкой UI выполни:
+
+```bash
+npx @21st-dev/cli install-skill
+```
+
+После установки:
+
+1. Проверь доступные skills.
+2. Проверь подходящие UI components.
+3. Используй подходящие компоненты, если они действительно полезны.
+4. Не добавляй случайные компоненты.
+5. Все компоненты должны соответствовать общей wedding design system.
+
+---
+
+# 3. FRAMER MOTION
+
+Обязательно использовать Framer Motion.
+
+Проверь наличие:
+
+```bash
+npm install framer-motion
+```
+
+Если уже установлен — не устанавливай повторно.
+
+Основные animations должны использовать:
+
+```text
+motion
+useScroll
+useTransform
+useSpring
+useMotionValue
+AnimatePresence
+```
+
+Особенно важно:
+
+**Golden Circle Expansion должна быть scroll-linked animation.**
+
+Не реализовывать её обычным `window.addEventListener('scroll')` + React setState, если это можно сделать через MotionValues.
+
+---
+
+# 4. ГЛАВНАЯ СТРАНИЦА — PAGE 1
+
+Существующая первая страница должна быть полностью переработана.
+
+Главный reference:
+
+`wedding-reference.png`
+
+---
+
+# 5. ИМЕНА
+
+Имена должны оставаться:
+
+# Kurmet & Balnur
+
+Между именами ОБЯЗАТЕЛЬНО использовать именно:
+
+`&`
+
+Итог:
+
+**Kurmet & Balnur**
+
+Не:
+
+Kurmet Balnur
+
+Не:
+
+Kurmet + Balnur
+
+Не:
+
+Kurmet and Balnur
+
+Не использовать логотип вместо текста.
+
+---
+
+# 6. TYPOGRAPHY
+
+Нужно заменить текущий шрифт.
+
+Текущий шрифт не использовать как есть.
+
+Подобрать элегантный high-fashion serif.
+
+Визуальное направление:
+
+* editorial;
+* luxury fashion;
+* cinematic;
+* elegant;
+* sophisticated.
+
+Основной заголовок:
+
+**Kurmet & Balnur**
+
+Он должен быть:
+
+* крупным;
+* тонким;
+* элегантным;
+* с хорошим letter spacing;
+* визуально дорогим;
+* не слишком жирным.
+
+Важно:
+
+Не использовать дешёвые wedding script fonts.
+
+Не делать рукописный свадебный шрифт.
+
+Использовать современный editorial serif.
+
+Дополнительный текст — современный clean sans-serif.
+
+---
+
+# 7. PAGE 1 — VISUAL
+
+Фон:
+
+deep cinematic black.
+
+Использовать:
+
+```text
+#0D0C0B
+#171513
+```
+
+Допустимы:
+
+* очень мягкие brown/black gradients;
+* subtle vignette;
+* film grain;
+* warm golden glow.
+
+Не делать чистый плоский #000000.
+
+---
+
+# 8. GOLDEN CIRCLE
+
+В центре находится тонкий золотой круг.
+
+Цвет:
+
+muted champagne gold.
+
+Пример:
+
+```text
+#B39A72
+```
+
+Но не использовать слишком яркое yellow gold.
+
+Круг:
+
+* тонкий;
+* elegant;
+* subtle glow;
+* slight blur;
+* небольшой золотой particle trail.
+
+---
+
+# 9. GOLDEN CIRCLE SCROLL ANIMATION
+
+Это одна из главных особенностей.
+
+Когда пользователь находится в верхней части страницы:
+
+```text
+              Kurmet & Balnur
+
+                   ○
+
+                OUR STORY
+         A MOMENT TO REMEMBER
+```
+
+При начале scroll:
+
+круг постепенно увеличивается.
+
+Одновременно:
+
+* заголовок плавно исчезает;
+* subtitle исчезает;
+* background начинает изменяться;
+* золотое свечение усиливается;
+* фотографии/следующая сцена начинают проявляться.
+
+При дальнейшем scroll:
+
+круг становится огромным.
+
+Он должен выйти за границы viewport.
+
+Принцип:
+
+```text
+small circle
+      ↓
+medium circle
+      ↓
+large circle
+      ↓
+circle larger than viewport
+      ↓
+fullscreen transition
+```
+
+---
+
+# 10. КРУГ ДОЛЖЕН БЫТЬ СВЯЗАН С SCROLL
+
+Не делать:
+
+```text
+setTimeout(...)
+```
+
+для этого перехода.
+
+Не делать просто:
+
+```text
+animation-duration: 2s
+```
+
+Круг должен реагировать именно на положение scroll.
+
+Использовать:
+
+```text
+useScroll()
+useTransform()
+useSpring()
+```
+
+Например концептуально:
+
+```text
+scrollProgress
+      ↓
+circleScale
+      ↓
+opacity
+      ↓
+textOpacity
+      ↓
+background
+      ↓
+nextSectionReveal
+```
+
+Все значения должны быть плавно сглажены.
+
+---
+
+# 11. ПАДАЮЩИЕ ЛЕПЕСТКИ
+
+На PAGE 1 постоянно присутствуют анимированные лепестки.
+
+Именно как в reference.
+
+Лепестки должны:
+
+* медленно падать;
+* иметь разные размеры;
+* иметь разную скорость;
+* немного вращаться;
+* слегка менять траекторию;
+* иметь depth/parallax;
+* иногда быть размытыми;
+* иногда находиться ближе к пользователю;
+* иногда проходить перед текстом.
+
+Нельзя сделать просто одинаковые PNG, двигающиеся по одной траектории.
+
+Нужно создать ощущение глубины.
+
+Использовать несколько слоёв:
+
+```text
+background petals
+midground petals
+foreground petals
+```
+
+Foreground может иметь blur.
+
+---
+
+# 12. ЛЕПЕСТКИ НЕ ИСЧЕЗАЮТ ПОСЛЕ PAGE 1
+
+Важно.
+
+Такие же лепестки должны продолжать присутствовать на следующей странице.
+
+То есть:
+
+PAGE 1:
+
+падающие лепестки
+
+↓ transition
+
+PAGE 2 / PAGE 3:
+
+те же по стилю падающие лепестки.
+
+Не менять визуальный стиль лепестков.
+
+---
+
+# 13. НЕ НУЖНЫ НАДПИСИ ПО КРАЯМ
+
+На reference могут присутствовать дополнительные декоративные подписи по краям.
+
+**НЕ ДОБАВЛЯТЬ ИХ.**
+
+Не нужны:
+
+* надписи слева;
+* надписи справа;
+* декоративные slogans по краям;
+* дополнительные captions.
+
+Основной контент должен оставаться в центре.
+
+---
+
+# 14. PAGE 2 — УДАЛИТЬ ПОЛНОСТЬЮ
+
+В существующем проекте есть **вторая страница/секция**, которая сейчас находится между первой страницей и 3D photo carousel.
+
+Её нужно **полностью убрать**.
+
+Не просто скрыть визуально.
+
+Нужно удалить её из пользовательского flow.
+
+После первой страницы и scroll transition пользователь должен переходить непосредственно к 3D photo carousel.
+
+Итог:
+
+```text
+PAGE 1
+CINEMATIC INTRO
+       ↓
+GOLDEN CIRCLE EXPANSION
+       ↓
+3D PHOTO CAROUSEL
+```
+
+НЕ:
+
+```text
+PAGE 1
+↓
+PAGE 2
+↓
+3D CAROUSEL
+```
+
+Page 2 больше не существует в пользовательском интерфейсе.
+
+Удалить:
+
+* её layout;
+* её text;
+* её components, если больше нигде не используются;
+* её navigation;
+* её unnecessary animation logic.
+
+Но сначала убедись, что удаляемые components не используются в других местах.
+
+---
+
+# 15. PAGE 3 — 3D PHOTO CAROUSEL
+
+Текущую третью страницу оставить как концепцию.
+
+Это должна быть:
+
+# PHOTO-ONLY 3D CAROUSEL
+
+Главный reference — предоставленная картинка.
+
+---
+
+# 16. 3D КАРУСЕЛЬ
+
+Использовать 3D perspective.
+
+В центре находится большая фотография.
+
+Слева и справа:
+
+несколько фотографий под углом.
+
+Например:
+
+```text
+       /PHOTO/
+    /PHOTO/    PHOTO    \PHOTO\
+ /PHOTO/                  \PHOTO\
+```
+
+Центральная фотография:
+
+* самая большая;
+* sharp;
+* полностью видимая;
+* находится ближе к пользователю.
+
+Боковые:
+
+* меньше;
+* повернуты;
+* находятся дальше;
+* имеют perspective;
+* немного темнее/blurred.
+
+---
+
+# 17. PHOTO ONLY
+
+Очень важно.
+
+На карточках НЕ должно быть:
+
+* Dmitry;
+* Kurmet;
+* Balnur;
+* Wedding 2026;
+* Будьте счастливы;
+* captions;
+* category;
+* descriptions;
+* quotes;
+* names;
+* text overlays.
+
+Карточка содержит:
+
+**ТОЛЬКО ФОТОГРАФИЮ.**
+
+Можно иметь:
+
+* favorite icon;
+* navigation controls;
+
+но никаких текстовых подписей на самих фотографиях.
+
+---
+
+# 18. 3D GOLDEN RING
+
+Под каруселью должен находиться тонкий светящийся золотой 3D ring.
+
+Как в reference.
+
+Он создаёт ощущение, что фотографии расположены вокруг кольца.
+
+Кольцо должно быть:
+
+* champagne gold;
+* luminous;
+* subtle;
+* cinematic;
+* reflective.
+
+---
+
+# 19. 3D CAROUSEL ANIMATION
+
+Карусель должна быть настоящей интерактивной 3D animation.
+
+Использовать:
+
+* perspective;
+* rotateY;
+* translateX;
+* scale;
+* opacity;
+* z-index/depth;
+* spring physics.
+
+Центральная фотография должна становиться активной.
+
+При переходе:
+
+```text
+left photo
+   ↓
+center
+   ↓
+right
+```
+
+Использовать плавный spring transition.
+
+Не делать резкого переключения.
+
+---
+
+# 20. УПРАВЛЕНИЕ КАРУСЕЛЬЮ
+
+Desktop:
+
+* mouse drag;
+* mouse wheel;
+* arrows;
+* optional keyboard arrows.
+
+Mobile:
+
+* swipe;
+* touch drag.
+
+Не заставлять мобильного пользователя использовать маленькие кнопки.
+
+Swipe должен ощущаться естественно.
+
+---
+
+# 21. ПАДАЮЩИЕ ЛЕПЕСТКИ НА 3D КАРУСЕЛИ
+
+На странице 3D carousel тоже должны постоянно падать лепестки.
+
+Использовать тот же визуальный стиль, что и на PAGE 1.
+
+Лепестки должны:
+
+* падать сверху вниз;
+* иметь разные скорости;
+* вращаться;
+* иметь depth;
+* иногда быть blurred;
+* проходить перед carousel;
+* иногда уходить за фотографии.
+
+Они должны быть частью общей сцены.
+
+---
+
+# 22. НЕ ДОБАВЛЯТЬ ЛИШНИЙ ТЕКСТ
+
+На 3D carousel странице главный герой:
+
+**PHOTOGRAPHS**
+
+Не нужно:
+
+```text
+Moments of eternity
+Будьте счастливы
+Wedding memories
+Dmitry
+Balnur
+Kurmet
+etc.
+```
+
+Допустимы только минимальные UI controls.
+
+---
+
+# 23. HEADER
+
+Если существующий header сохраняется, привести его к новому стилю.
+
+Название:
+
+**Kurmet & Balnur**
+
+Использовать тот же serif.
+
+Справа:
+
+ГАЛЕРЕЯ
+♡
+ЗАГРУЗИТЬ
+MENU
+
+Но header не должен отвлекать от фотографии.
+
+На mobile сделать компактный navigation.
+
+---
+
+# 24. COLORS
+
+Основная палитра:
+
+```text
+Deep Black      #0D0C0B
+Soft Black      #171513
+Warm Ivory      #F5F1E9
+Champagne      #E8E0D2
+Muted Gold      #B39A72
+White           #FFFFFF
+```
+
+Не использовать:
+
+* neon gold;
+* bright yellow;
+* purple;
+* blue;
+* saturated gradients.
+
+---
+
+# 25. VISUAL QUALITY
+
+Итог должен выглядеть как:
+
+high-end wedding film
++
+luxury editorial
++
+premium photography portfolio
++
+cinematic interactive experience.
+
+Не должно быть ощущения:
+
+* template;
+* generic landing page;
+* AI-generated UI;
+* дешёвого wedding website.
+
+---
+
+# 26. MOBILE
+
+Обязательно отдельно адаптировать под смартфон.
+
+Основные размеры:
+
+390×844
+393×852
+430×932
+
+Mobile не должен быть просто уменьшенным desktop.
+
+На мобильном:
+
+* сохраняется golden circle;
+* сохраняются petals;
+* сохраняется scroll transition;
+* сохраняется 3D carousel;
+* swipe вместо mouse drag;
+* уменьшить количество одновременно видимых карточек;
+* центральная фотография должна оставаться dominant.
+
+---
+
+# 27. DESKTOP
+
+Поддерживать:
+
+1366×768
+1440×900
+1536×864
+1920×1080
+
+На desktop:
+
+* крупная typography;
+* большие расстояния;
+* mouse parallax;
+* 3D perspective;
+* fullscreen cinematic sections.
+
+---
+
+# 28. PERFORMANCE
+
+Animation должна быть максимально плавной.
+
+Цель:
+
+60 FPS.
+
+Не делать большое количество React state updates при scroll.
+
+Использовать Framer Motion MotionValues.
+
+Оптимизировать images.
+
+Использовать:
+
+* lazy loading;
+* responsive images;
+* transform;
+* opacity;
+* GPU-friendly animations.
+
+---
+
+# 29. ACCESSIBILITY
+
+Добавить:
+
+* keyboard navigation;
+* focus states;
+* aria labels;
+* alt text;
+* reduced-motion support.
+
+Если:
+
+`prefers-reduced-motion: reduce`
+
+уменьшить сложность animations.
+
+---
+
+# 30. COMPONENT STRUCTURE
+
+Создать понятные компоненты.
+
+Например:
+
+```text
+components/
+  wedding/
+    CinematicIntro.tsx
+    GoldenCircleTransition.tsx
+    FallingPetals.tsx
+    WeddingHeader.tsx
+    PhotoCarousel3D.tsx
+    PhotoViewer.tsx
+```
+
+Не помещать всю animation logic в один огромный component.
+
+---
+
+# 31. НЕ ИЗМЕНЯЙ ФУНКЦИОНАЛЬНОСТЬ БЕЗ ПРИЧИНЫ
+
+Существующая функциональность сайта должна сохраниться, если она не относится к удаляемой PAGE 2.
+
+Сохрани:
+
+* gallery;
+* favorites;
+* upload;
+* photo viewer;
+* navigation.
+
+Изменяется прежде всего visual experience.
+
+---
+
+# 32. ФИНАЛЬНЫЙ USER FLOW
+
+Итоговый flow должен быть:
+
+```text
+QR
+ ↓
+PAGE 1
+ ↓
+CINEMATIC INTRO
+ ↓
+Kurmet & Balnur
+ ↓
+Golden Circle
+ ↓
+User scrolls
+ ↓
+Golden Circle expands
+ ↓
+Text fades
+ ↓
+Background morph
+ ↓
+Smooth transition
+ ↓
+PAGE 3
+ ↓
+3D PHOTO CAROUSEL
+ ↓
+Falling Petals
+ ↓
+Swipe / Drag / Wheel
+ ↓
+Photo Viewer
+```
+
+PAGE 2 должна быть полностью удалена.
+
+---
+
+# 33. IMPORTANT — DO NOT FAKE THE DESIGN
+
+Не используй reference image как background.
+
+Не вставляй screenshot в сайт.
+
+Не создавай статичную имитацию.
+
+Нужно реализовать настоящий UI.
+
+Reference image используется только как visual target.
+
+---
+
+# 34. FINAL QA
+
+После реализации:
+
+1. Запусти проект.
+2. Открой его в браузере.
+3. Проверь PAGE 1.
+4. Проверь golden circle.
+5. Проверь scroll animation.
+6. Проверь falling petals.
+7. Убедись, что PAGE 2 удалена.
+8. Проверь переход непосредственно к 3D carousel.
+9. Проверь 3D perspective.
+10. Проверь swipe.
+11. Проверь mouse drag.
+12. Проверь keyboard.
+13. Проверь mobile.
+14. Проверь desktop.
+15. Проверь console.
+16. Проверь TypeScript.
+17. Проверь responsive layout.
+18. Исправь найденные ошибки.
+
+Особенно внимательно проверь:
+
+**Golden Circle Expansion**
+
+и
+
+**3D Photo Carousel**
+
+Это две главные animations проекта.
+
+---
+
+# FINAL OBJECTIVE
+
+В результате должен получиться не просто красивый landing page.
+
+Это должна быть настоящая интерактивная свадебная фотогалерея:
+
+**Kurmet & Balnur**
+
+с cinematic intro, падающими лепестками, scroll-driven expanding golden circle и photo-only 3D carousel.
+
+Главное визуальное ощущение должно максимально соответствовать:
+
+`public/design-reference/wedding-reference.png`
+
+при этом весь интерфейс должен быть реально работающим, responsive и production-ready.
