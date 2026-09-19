@@ -452,8 +452,8 @@ def export_zip(category: Optional[str] = None):
             rows = cursor.fetchall()
 
             for r in rows:
-                file_disk_path = config.BASE_DIR / r["file_path"]
-                if file_disk_path.exists():
+               file_disk_path = config.PERSISTENT_ROOT / r["file_path"]
+        if file_disk_path.exists():
                     guest_folder = f"{r['guest_name']}_{r['guest_id'][:6]}"
                     cat_folder = r['category']
                     archive_name = f"{cat_folder}/{guest_folder}/{r['original_filename']}"
