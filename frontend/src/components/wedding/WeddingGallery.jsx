@@ -42,23 +42,6 @@ export default function WeddingGallery({
 
           // Asymmetrical editorial column span pattern
           // 0 -> wide (col-span-8), 1 -> tall (col-span-4), 2 -> medium (col-span-6), etc.
-          const patternIndex = index % 5;
-          let colSpanClass = "lg:col-span-4";
-          let aspectClass = "aspect-[3/4]"; // portrait by default
-
-          if (photo.aspect === "wide" || patternIndex === 0) {
-            colSpanClass = "lg:col-span-8";
-            aspectClass = "aspect-[16/9]";
-          } else if (patternIndex === 1) {
-            colSpanClass = "lg:col-span-4";
-            aspectClass = "aspect-[3/4]";
-          } else if (patternIndex === 2 || patternIndex === 3) {
-            colSpanClass = "lg:col-span-6";
-            aspectClass = "aspect-[4/3]";
-          } else if (patternIndex === 4) {
-            colSpanClass = "lg:col-span-12";
-            aspectClass = "aspect-[21/9] max-h-[600px]";
-          }
 
           return (
             <motion.div
@@ -80,14 +63,15 @@ export default function WeddingGallery({
               onClick={() => onPhotoClick(index)}
             >
               {/* Image with subtle zoom on hover */}
-              <div className={`w-full overflow-hidden ${aspectClass}`}>
-                <img
-                  src={photo.thumbnail || photo.url}
-                  alt={photo.title || 'Wedding moment'}
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] filter brightness-[0.96] group-hover:brightness-100"
-                />
-              </div>
+              <div className="w-full overflow-hidden bg-[#171513]">
+  <img
+    src={photo.url}
+    alt={photo.title || 'Wedding moment'}
+    loading="lazy"
+    decoding="async"
+    className="block w-full h-auto transition-transform duration-700 ease-out group-hover:scale-[1.01] filter brightness-[0.96] group-hover:brightness-100"
+  />
+</div>
 
               {/* Minimalist Overlay on Hover */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6">
