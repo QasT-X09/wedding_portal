@@ -75,13 +75,13 @@ if (patternIndex === 0) {
               onClick={() => onPhotoClick(index)}
             >
               {/* Image with subtle zoom on hover */}
-              <div className="w-full overflow-hidden bg-[#171513]">
+              <div className="w-full flex items-center justify-center overflow-hidden bg-[#171513]">
   <img
     src={photo.url}
     alt={photo.title || 'Wedding moment'}
     loading="lazy"
     decoding="async"
-    className="block w-full h-auto transition-transform duration-700 ease-out group-hover:scale-[1.01] filter brightness-[0.96] group-hover:brightness-100"
+    className="block max-w-full max-h-[72vh] w-auto h-auto object-contain transition-transform duration-700 ease-out group-hover:scale-[1.01] filter brightness-[0.96] group-hover:brightness-100"
   />
 </div>
 
