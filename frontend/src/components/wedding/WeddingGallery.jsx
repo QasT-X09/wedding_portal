@@ -39,7 +39,19 @@ export default function WeddingGallery({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
         {photos.map((photo, index) => {
           const isFav = favorites.includes(photo.id);
+          const patternIndex = index % 5;
 
+let colSpanClass = "lg:col-span-4";
+
+if (patternIndex === 0) {
+  colSpanClass = "lg:col-span-8";
+} else if (patternIndex === 1) {
+  colSpanClass = "lg:col-span-4";
+} else if (patternIndex === 2 || patternIndex === 3) {
+  colSpanClass = "lg:col-span-6";
+} else if (patternIndex === 4) {
+  colSpanClass = "lg:col-span-12";
+}
           // Asymmetrical editorial column span pattern
           // 0 -> wide (col-span-8), 1 -> tall (col-span-4), 2 -> medium (col-span-6), etc.
 
